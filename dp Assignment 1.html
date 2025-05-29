@@ -297,7 +297,7 @@
       } else {
         products.forEach(product => {
           const div = document.createElement('div');
-          div.innerHTML = `<img src="https://via.placeholder.com/80?text=${encodeURIComponent(product)}" alt="${product}"><br><strong>${product}</strong>`;
+          div.innerHTML = `<img src="images/${encodeURIComponent(product)}.jpg" alt="${product}"><br><strong>${product}</strong>`;
           productDisplay.appendChild(div);
 
           const step = document.createElement('div');

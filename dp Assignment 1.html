@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pilgrim Skin Quiz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      scroll-behavior: smooth;
+      background-color: #f9f9f9;
+      color: #111;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: white;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: black;
+      font-weight: 600;
+    }
+
+    nav a:hover {
+      color: #2f8683;
+    }
+
+    section {
+      padding: 4rem 2rem;
+      max-width: 960px;
+      margin: auto;
+    }
+
+    .hero {
+      text-align: center;
+      background-color: white;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      margin: 1rem 0;
+    }
+
+    .btn {
+      background-color: #2f8683;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .btn:hover {
+      background-color: #256f6c;
+    }
+
+    .quiz-section, .result-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: space-between;
+    }
+
+    .quiz-card, .result-card {
+      flex: 1 1 45%;
+      background-color: white;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .quiz-options button {
+      display: block;
+      width: 100%;
+      padding: 0.75rem;
+      margin-top: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+      background: white;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .quiz-options button:hover,
+    .quiz-options button.selected {
+      background-color: #d1f0ef;
+      border-color: #2f8683;
+    }
+
+    .routine-guide {
+      display: flex;
+      gap: 1rem;
+      margin: 1rem 0;
+      flex-wrap: wrap;
+    }
+
+    .routine-guide div {
+      min-width: 2rem;
+      min-height: 2rem;
+      background-color: #2f8683;
+      color: white;
+      font-weight: bold;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      padding: 0.5rem;
+    }
+
+    .product-icons {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .product-icons div {
+      text-align: center;
+      width: 120px;
+    }
+
+    .product-icons img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    .testimonial {
+      display: flex;
+      align-items: center;
+      margin-top: 1rem;
+      gap: 1rem;
+      background: white;
+      padding: 1rem;
+      border-radius: 1rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .testimonial img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .stars {
+      color: gold;
+      margin-left: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .quiz-section, .result-section {
+        flex-direction: column;
+      }
+
+      .quiz-card, .result-card {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <div><strong>HOME</strong></div>
+    <ul>
+      <li><a href="#quiz">Quiz</a></li>
+      <li><a href="#results">Results</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <h1>Not sure where to start?<br>Take our Skin Quiz to discover your perfect skincare routine!</h1>
+    <p>Personalized product bundles for your skin type, concerns, and lifestyle.</p>
+    <a href="#quiz"><button class="btn">Take the Skin Quiz</button></a>
+  </section>
+
+  <section id="quiz">
+    <h2>QUIZ</h2>
+    <div class="quiz-section">
+      <div class="quiz-card">
+        <h3>What’s your primary skin concern?</h3>
+        <div class="quiz-options" id="quizOptions">
+          <button data-products="acne">Acne & Blemishes</button>
+          <button data-products="dry">Dryness & Flakiness</button>
+          <button data-products="dull">Dullness & Glow</button>
+          <button data-products="oily">Oiliness & Shine</button>
+          <button data-products="sun">Sun Damage & Pollution</button>
+        </div>
+        <div style="margin-top: 1rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+          <button class="btn" onclick="showResults()">See My Kit</button>
+          <button class="btn" style="background:#ddd;color:#000" onclick="clearSelection()">Clear Selection</button>
+        </div>
+      </div>
+
+      <div class="result-card" id="results">
+        <h3>Here’s your Smart Starter Kit!</h3>
+        <div class="product-icons" id="productDisplay"></div>
+        <p><strong>Routine Guide</strong></p>
+        <div class="routine-guide" id="routineGuide"></div>
+        <div style="display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap;">
+          <button class="btn" id="addToCart">Add to Cart</button>
+          <button class="btn" style="background:#ddd;color:#000">See 1.5x% it</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="reviews">
+    <h2 style="text-align:center">Customer Reviews</h2>
+    <div class="testimonial">
+      <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Ayushi">
+      <p><strong>Ayushi:</strong> "I loved how easy the quiz was. Got exactly what I needed!" <span class="stars">★★★★★</span></p>
+    </div>
+    <div class="testimonial">
+      <img src="https://randomuser.me/api/portraits/men/55.jpg" alt="Devendra">
+      <p><strong>Devendra:</strong> "Simple, effective, and really helpful for my daily routine." <span class="stars">★★★★☆</span></p>
+    </div>
+    <div class="testimonial">
+      <img src="https://randomuser.me/api/portraits/men/35.jpg" alt="Kaustubh">
+      <p><strong>Kaustubh:</strong> "It matched my needs perfectly and the UI was smooth." <span class="stars">★★★★★</span></p>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Pilgrim Skincare. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const productMap = {
+      acne: ["Acne Cleanser", "Salicylic Serum", "Oil-Free Moisturizer"],
+      dry: ["Brightening Cleanser", "Hydrating Serum", "Deep Moisturizer"],
+      dull: ["Vitamin C Cleanser", "Glow Serum", "Radiance Cream"],
+      oily: ["Foaming Cleanser", "Mattifying Serum", "Oil Control Moisturizer"],
+      sun: ["SPF Cleanser", "Anti-Pollution Serum", "UV Block Cream"]
+    };
+
+    const quizButtons = document.querySelectorAll('#quizOptions button');
+    const productDisplay = document.getElementById('productDisplay');
+    const routineGuide = document.getElementById('routineGuide');
+
+    quizButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.classList.toggle('selected');
+      });
+    });
+
+    function showResults() {
+      const selected = [...quizButtons].filter(btn => btn.classList.contains('selected'));
+      let products = [];
+
+      selected.forEach(btn => {
+        const key = btn.getAttribute('data-products');
+        products = products.concat(productMap[key]);
+      });
+
+      productDisplay.innerHTML = '';
+      routineGuide.innerHTML = '';
+
+      if (products.length === 0) {
+        productDisplay.innerHTML = '<p>No products selected yet.</p>';
+      } else {
+        products.forEach(product => {
+          const div = document.createElement('div');
+          div.innerHTML = `<img src="https://via.placeholder.com/80?text=${encodeURIComponent(product)}" alt="${product}"><br><strong>${product}</strong>`;
+          productDisplay.appendChild(div);
+
+          const step = document.createElement('div');
+          step.textContent = product;
+          routineGuide.appendChild(step);
+        });
+      }
+    }
+
+    function clearSelection() {
+      quizButtons.forEach(btn => btn.classList.remove('selected'));
+      productDisplay.innerHTML = '';
+      routineGuide.innerHTML = '';
+      document.getElementById('resultsBtn').addEventListener('click', () => {
+      document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
+      });
+    }
+  </script>
+</body>
+
+</html>
